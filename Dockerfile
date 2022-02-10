@@ -26,6 +26,8 @@ RUN curl -o aws-iam-authenticator \
     chmod +x ./aws-iam-authenticator && \
     mv ./aws-iam-authenticator /usr/local/bin
 
+RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 
 COPY . /usr/src/
