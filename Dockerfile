@@ -33,5 +33,4 @@ RUN helm3 plugin install https://github.com/hypnoglow/helm-s3.git
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 
 COPY . /usr/src/
-#ENTRYPOINT ["node", "/usr/src/index.js"]
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT ["node", "/usr/src/index.js"]
