@@ -1,12 +1,11 @@
-FROM alpine:3.14.0
+FROM alpine:3.15.0
 
 ENV BASE_URL="https://get.helm.sh"
 
 ENV HELM_2_FILE="helm-v2.17.0-linux-amd64.tar.gz"
 ENV HELM_3_FILE="helm-v3.7.1-linux-amd64.tar.gz"
 
-RUN apk add --no-cache ca-certificates \
-    --repository http://dl-3.alpinelinux.org/alpine/edge/community/ \
+RUN apk add --no-cache ca-certificates py3-pip \
     jq curl bash nodejs aws-cli && \
     pip3 install awscli && \
     # Install helm version 2:
