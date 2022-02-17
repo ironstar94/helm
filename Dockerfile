@@ -21,15 +21,6 @@ RUN apk add --no-cache ca-certificates git py3-pip \
     # Init version 2 helm:
     helm init --client-only
 
-RUN curl -o aws-iam-authenticator \
-    https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/aws-iam-authenticator && \
-    chmod +x ./aws-iam-authenticator && \
-    mv ./aws-iam-authenticator /usr/local/bin
-
-RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
-RUN helm3 plugin install https://github.com/hypnoglow/helm-s3.git
-
-
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 
 COPY . /usr/src/

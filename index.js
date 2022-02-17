@@ -179,6 +179,7 @@ async function run() {
     const dryRun = core.getInput("dry-run");
     const secrets = getSecrets(core.getInput("secrets"));
     const atomic = getInput("atomic") || true;
+    const s3 = getInput("s3")
 
     core.debug(`param: track = "${track}"`);
     core.debug(`param: release = "${release}"`);
@@ -217,6 +218,8 @@ async function run() {
       process.env.HELM_HOME = "/root/.helm/"
     }
 
+
+
     if (dryRun) args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
     if (version) args.push(`--set=app.version=${version}`);
@@ -238,7 +241,7 @@ async function run() {
       args.push("--atomic");
     }
 
-    // Setup necessary files.
+    // Setup necessary files. 
     if (process.env.KUBECONFIG_FILE) {
       process.env.KUBECONFIG = "./kubeconfig.yml";
       await writeFile(process.env.KUBECONFIG, process.env.KUBECONFIG_FILE);
@@ -262,6 +265,13 @@ async function run() {
       await exec.exec(helm, deleteCmd(helm, namespace, `${appName}-canary`), {
         ignoreReturnCode: true
       });
+    }
+
+    if (s3 === "true") {
+      core.debug(`installing s3 plugin`);
+      await exec.exec(helm, ['plugin', 'install', 'https://github.com/hypnoglow/helm-s3.git']), {
+        ignoreReturnCode: true
+      };
     }
 
     // Actually execute the deployment here.
