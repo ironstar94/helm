@@ -24,5 +24,4 @@ RUN apk add --no-cache ca-certificates git py3-pip \
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 
 COPY . /usr/src/
-#ENTRYPOINT ["node", "/usr/src/index.js"]
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT ["node", "/usr/src/index.js"]
